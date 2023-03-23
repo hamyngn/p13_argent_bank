@@ -1,0 +1,47 @@
+header {
+    padding: 5px 20px;
+}
+
+.flexRow {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.logo {
+    width: 200px;
+    max-width: 100%;
+}
+
+nav {
+    font-weight: bold;
+    
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+}
+
+.navLink:hover{
+    text-decoration: underline;
+}
+
+.loginIcon {
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    fill: var(--primary-color);
+}
+
+.signIn {
+    color: var(--primary-color)
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #ccc;
+    padding: 2rem 0 1.5rem;
+}
