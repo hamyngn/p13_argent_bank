@@ -14,7 +14,7 @@ const SignInPage = () => {
     const [password, setPassword] = React.useState("")
     const [loading, setLoading] = useState(false);
 
-/*     const { isLoggedIn } = useSelector(state => state.login); */
+    const {isLoggedIn} = useSelector(state => state.login);
 /*     const { message } = useSelector(state => state.message); */
 
     const dispatch = useDispatch();
@@ -23,11 +23,12 @@ const SignInPage = () => {
         event.preventDefault()
         setLoading(true);
         dispatch(login(email, password))
-    }
-
-/*     if (isLoggedIn) {
         navigate("/user/profile");
-    } */
+    }
+/*     console.log(useSelector(state => state.login)) */
+    if (isLoggedIn) {
+        <Navigate to="/user/profile"/>
+    }
  
     return (
     <div className={styles.bgDark}>

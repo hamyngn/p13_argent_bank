@@ -6,23 +6,21 @@ import {
 } from './actionTypes'
 
 
-export const login =  (email, password) => (dispatch) => {
-    loginService.login(email, password).then(
-      (data) => {
-        console.log(email, password)
+export const login =  (email, password) => async (dispatch) => {
+    const data = await loginService.login(email, password)
+      if (data) {
         dispatch({
           type: LOGIN_SUCCEEDED,
           payload: { user: data },
         });
   
         return Promise.resolve();
-      },
-      (error) => {
-        console.log(error)
+      }
+      else {
         dispatch({
           type: LOGIN_FAILED,
         });
     
         return Promise.reject();
     }
-)}
+}

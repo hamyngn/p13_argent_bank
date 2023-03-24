@@ -2,20 +2,21 @@ import axios from "axios"
 
 const API_URL = "http://localhost:3001/api/v1/user/login";
 
-const login = (email, password) => {
+const login = async (email, password) => {
     const user = {email: email, password: password}
-    axios.post(API_URL, user)
+    let data;
+    await axios.post(API_URL, user)
         .then((response) => {
-        if (response.data.body.token) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        console.log(response.data)
-        return response.data }
+            if (response.data.body.token) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
+            data = response.data
+            }
         )
         .catch(error => {
             console.error(error)
         })
-    
+        return data;
   };
 
   export default {
