@@ -1,10 +1,15 @@
 import axios from "axios";
-import authHeader from "./authHeader";
+import authHeader from "../services/authHeader";
 
-const API_URL = "http://localhost:3031/api/v1/user/"
+const API_URL = "http://localhost:3001/api/v1/user/profile";
 
-const getUserBoard = () => {
-    return axios.get(API_URL + "profile", { headers: authHeader() });
-};
+const getUser = async () => {
+    let user;
+    const token = authHeader();
+    await axios.get(API_URL, { headers: {'Authorization' : `Bearer ${token}` }})
+    .then(res => user = res.data.body)
+    .catch(error => console.log(error));
+    return user;
+}
 
-export default getUserBoard 
+export default getUser;

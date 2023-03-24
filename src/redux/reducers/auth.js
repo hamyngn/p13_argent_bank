@@ -1,4 +1,4 @@
-import { LOGIN_SUCCEEDED, LOGIN_FAILED } from '../actions/actionTypes'
+import { LOGIN_SUCCEEDED, LOGIN_FAILED, LOGOUT } from '../actions/actionTypes'
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -15,6 +15,12 @@ const login = (state = initialState, action) => {
       };
     }
     case LOGIN_FAILED:
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      };
+      case LOGOUT:
       return {
         ...state,
         isLoggedIn: false,

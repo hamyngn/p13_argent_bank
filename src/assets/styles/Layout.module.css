@@ -15,7 +15,8 @@ header {
 
 nav {
     font-weight: bold;
-    
+    display: flex;
+    align-items: center;
 }
 
 .navLink {
@@ -36,7 +37,11 @@ nav {
 }
 
 .signIn {
-    color: var(--primary-color)
+    color: var(--primary-color);
+}
+
+.name {
+    margin-right: 8px;
 }
 
 footer {

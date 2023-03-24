@@ -1,13 +1,13 @@
-import loginService from '../../services/loginService';
+import authService from '../../services/authService';
 import {
     LOGIN_SUCCEEDED,
     LOGIN_FAILED,
-    SET_MESSAGE,
+    LOGOUT,
 } from './actionTypes'
 
 
 export const login =  (email, password) => async (dispatch) => {
-    const data = await loginService.login(email, password)
+    const data = await authService.login(email, password)
       if (data) {
         dispatch({
           type: LOGIN_SUCCEEDED,
@@ -24,3 +24,11 @@ export const login =  (email, password) => async (dispatch) => {
         return Promise.reject();
     }
 }
+
+export const logout = () => (dispatch) => {
+    authService.logout();
+  
+    dispatch({
+      type: LOGOUT,
+    });
+  };
