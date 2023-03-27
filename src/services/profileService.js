@@ -8,7 +8,8 @@ const getUser = async () => {
     const token = authHeader();
     await axios.get(API_URL, { headers: {'Authorization' : `Bearer ${token}` }})
     .then(res => user = res.data.body)
-    .catch(error => console.log(error));
+    .catch(error => console.log(error)); 
+
     return user;
 }
 

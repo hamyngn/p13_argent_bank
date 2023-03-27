@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {ReactComponent as SignOutIcon} from '../assets/images/right-from-bracket-solid.svg';
 import getUser from '../services/profileService';
 import { logout } from "../redux/actions/actions";
+import jwt_decode from "jwt-decode";
+import authHeader from "../services/authHeader";
 
 const Layout = () => {
   const {isLoggedIn} = useSelector(state => state.auth)
@@ -15,11 +17,19 @@ const Layout = () => {
   const dispatch = useDispatch()
   let navigate = useNavigate();
 
-  const getProfile = () => {
-  getUser().then(res => setUser(res))
+  if(isLoggedIn) {
+    const token = authHeader();
+      const decoded = jwt_decode(token)
+      if (decoded.exp < new Date()/1000) {
+          dispatch(logout());
+      }
   }
+
   React.useEffect (() => {
-   if(isLoggedIn) getProfile();
+   if (isLoggedIn) {
+    getUser().then(res => setUser(res))
+   }
+   console.log(isLoggedIn)
   },[isLoggedIn])
 
   const handleLogOut = () => {

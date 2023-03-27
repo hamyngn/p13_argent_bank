@@ -22,8 +22,10 @@ const SignInPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true);
-        dispatch(login(email, password))
-        navigate("/user/profile");
+        dispatch(login(email, password)).then(
+            () => navigate("/user/profile")
+        )
+        
     }
 /*     console.log(useSelector(state => state.login)) */
     if (isLoggedIn) {
