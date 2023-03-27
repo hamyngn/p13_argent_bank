@@ -5,7 +5,7 @@ import logo from '../assets/images/argentBankLogo.png';
 import {ReactComponent as SignInIcon} from '../assets/images/circle-user-solid.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import {ReactComponent as SignOutIcon} from '../assets/images/right-from-bracket-solid.svg';
-import getUser from '../services/profileService';
+import profileService from '../services/profileService';
 import { logout } from "../redux/actions/actions";
 import jwt_decode from "jwt-decode";
 import authHeader from "../services/authHeader";
@@ -27,7 +27,7 @@ const Layout = () => {
 
   React.useEffect (() => {
    if (isLoggedIn) {
-    getUser().then(res => setUser(res))
+    profileService.getUser().then(res => setUser(res))
    }
    console.log(isLoggedIn)
   },[isLoggedIn])
@@ -61,7 +61,7 @@ const Layout = () => {
             }
           </nav>
         </header>
-        <main style={{ padding: '1rem 0' }}>
+        <main>
           <Outlet />
         </main>
         <footer>

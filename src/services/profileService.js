@@ -13,4 +13,22 @@ const getUser = async () => {
     return user;
 }
 
-export default getUser;
+const editUser = (firstName, lastName) => {
+    const user = {
+        firstName: firstName,
+        lastName: lastName
+    }
+    
+    const token = authHeader();
+    axios.put(API_URL, user, { headers: {'Authorization' : `Bearer ${token}` }})
+    .then(res=> console.log(res))
+    .catch(error => console.log(error))
+
+    return user;
+}
+
+const exportedObject = {
+    getUser, 
+    editUser
+}
+export default exportedObject;

@@ -1,8 +1,10 @@
-import authService from '../../services/authService';
+import authService from '../../services/authService'
+import profileService from '../../services/profileService'
 import {
     LOGIN_SUCCEEDED,
     LOGIN_FAILED,
     LOGOUT,
+    UPDATE,
 } from './actionTypes'
 
 
@@ -32,3 +34,14 @@ export const logout = () => (dispatch) => {
       type: LOGOUT,
     });
   };
+
+export const update = (firstName, lastName) => (dispatch) => {
+    const data = profileService.editUser(firstName, lastName);
+    if(data) {
+      dispatch({
+        type: UPDATE,
+        payload: {user: data}
+      })
+    }
+   
+}

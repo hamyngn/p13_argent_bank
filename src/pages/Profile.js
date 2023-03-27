@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from "react"
-import getUser from "../services/profileService";
+import profileService from "../services/profileService";
 import styles from "../assets/styles/Profile.module.css"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { update } from "../redux/actions/actions";
 
 const Profile = () => {
     const {isLoggedIn} = useSelector(state => state.auth)
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
+    const [showUpdate, setShowUpdate] = useState(false)
+    const [firstName, setFirstName] = useState(null)
+    const [lastName, setLastName] = useState(null)
 
-    let navigate = useNavigate();
+    let navigate = useNavigate()
+    let dispatch = useDispatch()
 
     useEffect (() => {
     if (isLoggedIn === true) {
-        getUser().then(res => {
+        profileService.getUser().then(res => {
             setUser(res);
             setLoading(false)
         })      
@@ -22,13 +27,60 @@ const Profile = () => {
     }
     },[isLoggedIn, navigate])
 
+    const displayUpdate = () => {
+        setShowUpdate(true)
+    }
+
+    const hideUpdate = () => {
+        setShowUpdate(false)
+    }
+
+    const handleUpdate = () => {
+        dispatch(update(firstName, lastName))
+    }
+
 return (
     <>
     {loading && <div>Loading...</div>}
     <div className={styles.container}>
     <div className={styles.header}>
-        <h1>Welcome back<br />{user.firstName} {user.lastName}</h1>
-        <button className={styles.editButton}>Edit Name</button>
+    <h1 className={styles.welcome}>Welcome back</h1>
+        {!showUpdate &&
+        <>
+        <div>
+            <h1 className={styles.name}>{user.firstName} {user.lastName}</h1>
+            <button className={styles.editButton} onClick={displayUpdate}>Edit Name</button>
+        </div>
+        </>
+        }
+        {showUpdate &&
+        <div className={styles.updateInput}>
+        <form onSubmit={handleUpdate}>
+        <label htmlFor="firstname"></label>
+            <input 
+            type="text" 
+            id="firstname" 
+            required
+            placeholder={user.firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            style={{marginRight: "10px"}}
+            />
+        <label htmlFor="lastname"></label>
+            <input 
+            type="text" 
+            id="lastname" 
+            required
+            placeholder={user.lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            />
+        <div className={styles.buttonContainer}>
+        <button className={styles.editButton} style={{marginRight: "10px"}} type="submit">Save</button>
+        <button className={styles.editButton} onClick={hideUpdate}>Cancel</button>
+        </div>
+        </form>
+        
+        </div>
+        }
       </div>
       <h2 className={styles.srOnly}>Accounts</h2>
       <section className={styles.account}>
