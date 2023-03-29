@@ -17,31 +17,36 @@ nav {
     font-weight: bold;
     display: flex;
     align-items: center;
+    color: var(--primary-color);
 }
 
 .navLink {
-    display: flex;
-    align-items: center;
     text-decoration: none; 
+    margin-right: 0.5rem;
+    color: var(--primary-color);
 }
 
 .navLink:hover{
     text-decoration: underline;
 }
 
-.loginIcon {
-    margin-right: 5px;
+.icon {
     width: 16px;
     height: 16px;
     fill: var(--primary-color);
-}
-
-.signIn {
-    color: var(--primary-color);
+    margin-bottom: -2px;
 }
 
 .name {
     margin-right: 8px;
+}
+
+.name:hover{
+    text-decoration: underline;
+}
+
+.signOut:hover {
+    text-decoration: underline;
 }
 
 footer {

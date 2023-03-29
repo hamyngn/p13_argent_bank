@@ -61,7 +61,7 @@ return (
             type="text" 
             id="firstname" 
             required
-            placeholder={user.firstName}
+            value={user.firstName}
             onChange={(event) => setFirstName(event.target.value)}
             style={{marginRight: "10px"}}
             />
@@ -70,7 +70,7 @@ return (
             type="text" 
             id="lastname" 
             required
-            placeholder={user.lastName}
+            value={user.lastName}
             onChange={(event) => setLastName(event.target.value)}
             />
         <div className={styles.buttonContainer}>

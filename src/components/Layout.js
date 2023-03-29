@@ -46,16 +46,16 @@ const Layout = () => {
           <nav>
             {!isLoggedIn && 
             <NavLink to="/user/login" className = {styles.navLink}>
-            <SignInIcon className={styles.loginIcon}/> <span className={styles.signIn}>Sign In</span>
+            <SignInIcon className={styles.icon}/> <span>Sign In</span>
             </NavLink>
             }
             {isLoggedIn &&
             <>
-            <div className={styles.name}>
-            <SignInIcon className={styles.loginIcon}/> <span>{user.firstName}</span>
+            <div className={styles.profile}>
+            <SignInIcon className={styles.icon}/> <span className={styles.name}>{user.firstName}</span>
             </div>
-            <div onClick={() => handleLogOut()}>
-            <SignOutIcon className={styles.loginIcon}/> <span className={styles.signIn}>Sign Out</span>
+            <div onClick={() => handleLogOut()} className={styles.logout}>
+            <SignOutIcon className={styles.icon}/> <span className={styles.signOut}>Sign Out</span>
             </div>
             </>
             }
