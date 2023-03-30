@@ -7,7 +7,6 @@ import { update } from "../redux/actions/actions";
 
 const Profile = () => {
     const {isLoggedIn} = useSelector(state => state.auth)
-    const [user, setUser] = useState({})
     const [loading, setLoading] = useState(true)
     const [showUpdate, setShowUpdate] = useState(false)
     const [firstName, setFirstName] = useState(null)
@@ -19,9 +18,10 @@ const Profile = () => {
     useEffect (() => {
     if (isLoggedIn === true) {
         profileService.getUser().then(res => {
-            setUser(res);
+            setFirstName(res.firstName)
+            setLastName(res.lastName)
             setLoading(false)
-        })      
+        })
     } else {
         navigate("/user/login")
     }
@@ -48,7 +48,7 @@ return (
         {!showUpdate &&
         <>
         <div>
-            <h1 className={styles.name}>{user.firstName} {user.lastName}</h1>
+            <h1 className={styles.name}>{firstName} {lastName}</h1>
             <button className={styles.editButton} onClick={displayUpdate}>Edit Name</button>
         </div>
         </>
@@ -61,7 +61,7 @@ return (
             type="text" 
             id="firstname" 
             required
-            value={user.firstName}
+            value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             style={{marginRight: "10px"}}
             />
@@ -70,7 +70,7 @@ return (
             type="text" 
             id="lastname" 
             required
-            value={user.lastName}
+            value={lastName}
             onChange={(event) => setLastName(event.target.value)}
             />
         <div className={styles.buttonContainer}>

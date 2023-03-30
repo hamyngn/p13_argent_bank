@@ -15,23 +15,24 @@ const SignInPage = () => {
     const [loading, setLoading] = useState(false);
 
     const {isLoggedIn} = useSelector(state => state.auth);
-/*     const { message } = useSelector(state => state.message); */
+    const { message } = useSelector(state => state.message);
 
     const dispatch = useDispatch();
  
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true);
-        dispatch(login(email, password)).then(
-            () => navigate("/user/profile")
-        )
-        
+        dispatch(login(email, password))
+        .then(() => {
+            navigate("/user/profile")
+        })
+        .catch(() => {
+            setLoading(false)
+        })
     }
-/*     console.log(useSelector(state => state.login)) */
     if (isLoggedIn) {
-        <Navigate to="/user/profile"/>
+        return <Navigate to="/user/profile" />;
     }
- 
     return (
     <div className={styles.bgDark}>
         <section className={styles.signInContent}>
@@ -41,7 +42,7 @@ const SignInPage = () => {
             <div className={styles.inputWrapper}>
                 <label htmlFor="username">Username</label>
                 <input 
-                type="text" 
+                type="email" 
                 id="username" 
                 required
                 onChange={(event) => setEmail(event.target.value)}
@@ -60,8 +61,12 @@ const SignInPage = () => {
                 <input type="checkbox" id="remember-me" />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
-{/*             {message && <div>{message}</div>} */}
-            <button /* disabled={loading} */ type="submit" className={styles.signInButton}>
+            {message && (
+              <div role="alert">
+                {message}
+              </div>
+          )}
+            <button disabled={loading} type="submit" className={styles.signInButton}>
                 {loading ? 'Signing In' : 'Sign In'}
             </button>
             </form>

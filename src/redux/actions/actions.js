@@ -5,22 +5,29 @@ import {
     LOGIN_FAILED,
     LOGOUT,
     UPDATE,
+    SET_MESSAGE,
+    CLEAR_MESSAGE
 } from './actionTypes'
 
 
 export const login =  (email, password) => async (dispatch) => {
-    const data = await authService.login(email, password)
+    const {data, error} = await authService.login(email, password)
       if (data) {
         dispatch({
           type: LOGIN_SUCCEEDED,
           payload: { user: data },
         });
-  
+        
         return Promise.resolve();
       }
-      else {
+      if (error) {
         dispatch({
           type: LOGIN_FAILED,
+        })
+
+        dispatch({
+          type: SET_MESSAGE,
+          payload: error.response.data.message,
         });
     
         return Promise.reject();
@@ -32,6 +39,10 @@ export const logout = () => (dispatch) => {
   
     dispatch({
       type: LOGOUT,
+    });
+
+    dispatch({
+      type: CLEAR_MESSAGE,
     });
   };
 

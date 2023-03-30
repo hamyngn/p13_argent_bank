@@ -5,6 +5,7 @@ const API_URL = "http://localhost:3001/api/v1/user/login";
 const login = async (email, password) => {
     const user = {email: email, password: password}
     let data;
+    let error;
     await axios.post(API_URL, user)
         .then((response) => {
             if (response.data.body.token) {
@@ -13,10 +14,11 @@ const login = async (email, password) => {
             data = response.data
             }
         )
-        .catch(error => {
-            console.error(error)
+        .catch(err => {
+            error = err
+            console.error(err)
         })
-        return data;
+        return {data, error};
   };
 
 const logout = () => {
