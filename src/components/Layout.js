@@ -68,7 +68,7 @@ const Layout = () => {
             }
           </nav>
         </header>
-        <main>
+        <main className={styles.main}>
           <Outlet />
         </main>
         <footer>

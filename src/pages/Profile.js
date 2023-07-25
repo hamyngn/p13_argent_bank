@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react"
 import profileService from "../services/profileService";
 import styles from "../assets/styles/Profile.module.css"
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { update } from "../redux/actions/actions";
+import { connect } from 'react-redux'
 
-const Profile = () => {
+const Profile = (props) => {
     const {isLoggedIn} = useSelector(state => state.auth)
     const [loading, setLoading] = useState(true)
     const [showUpdate, setShowUpdate] = useState(false)
@@ -13,7 +14,6 @@ const Profile = () => {
     const [lastName, setLastName] = useState(null)
 
     let navigate = useNavigate()
-    let dispatch = useDispatch()
 
     useEffect (() => {
     if (isLoggedIn === true) {
@@ -36,7 +36,7 @@ const Profile = () => {
     }
 
     const handleUpdate = () => {
-        dispatch(update(firstName, lastName))
+      props.updateName(firstName, lastName)
     }
 
 return (
@@ -118,4 +118,8 @@ return (
 )
 }
 
-export default Profile
+const mapDispatchToProps = {
+  updateName: update,
+}
+
+export default connect(null, mapDispatchToProps)(Profile)

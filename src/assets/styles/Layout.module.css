@@ -18,6 +18,7 @@ nav {
     display: flex;
     align-items: center;
     color: var(--primary-color);
+    white-space: nowrap;
 }
 
 .navLink {

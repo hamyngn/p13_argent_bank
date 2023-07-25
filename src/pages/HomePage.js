@@ -21,7 +21,7 @@ return(
         <div className={styles.featureItem}>
           <img src={chatIcon} alt="Chat Icon" className={styles.featureIcon} />
           <h3 className={styles.featureItemTitle}>You are our #1 priority</h3>
-          <p>
+          <p className={styles.p}>
             Need to talk to a representative? You can get in touch through our
             24/7 chat or through a phone call in less than 5 minutes.
           </p>
@@ -33,7 +33,7 @@ return(
             className={styles.featureIcon}
           />
           <h3 className={styles.featureItemTitle}>More savings means higher rates</h3>
-          <p>
+          <p className={styles.p}>
             The more you save with us, the higher your interest rate will be!
           </p>
         </div>
@@ -44,7 +44,7 @@ return(
             className={styles.featureIcon}
           />
           <h3 className={styles.featureItemTitle}>Security you can trust</h3>
-          <p>
+          <p className={styles.p}>
             We use top of the line encryption to make sure your data and money
             is always safe.
           </p>
