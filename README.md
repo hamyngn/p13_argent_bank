@@ -8,14 +8,16 @@ The back-end can be founded here: https://github.com/OpenClassrooms-Student-Cent
 To have a good organization, you can create a folder argentbank-app in which you will clone the back-end and front-end project
 
 Clone the back-end project in your folder sportsee-app : 
+ ```sh
 git clone https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git
-
+```
 argentbank-app/
    - Project-10-Bank-API
 
 Clone the front-end project in your folder sportsee-app :
+ ```sh
 git clone https://github.com/hamyngn/p13_argent_bank.git
-
+```
 argentbank-app/
    - p13_argent_bank
 
