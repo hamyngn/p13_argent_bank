@@ -3,6 +3,7 @@ import profileService from '../../services/profileService'
 import {
     LOGIN_SUCCEEDED,
     LOGIN_FAILED,
+    LOGIN_REQUESTED,
     LOGOUT,
     UPDATE,
     SET_MESSAGE,
@@ -32,6 +33,14 @@ export const login =  (email, password) => async (dispatch) => {
     
         return Promise.reject();
     }
+}
+
+export const loginRequest = ({email, password}) => {
+  return {
+    type: LOGIN_REQUESTED,
+    email,
+    password
+  }
 }
 
 export const logout = () => (dispatch) => {

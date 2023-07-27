@@ -1,5 +1,6 @@
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGIN_REQUESTED = 'LOGIN_REQUESTED'
 export const SET_MESSAGE = 'SET_MESSAGE'
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 export const LOGOUT = 'LOGOUT'

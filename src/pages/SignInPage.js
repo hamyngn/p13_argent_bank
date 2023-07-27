@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate  } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import styles from "../assets/styles/SignInPage.module.css"
 import {ReactComponent as SignInIcon} from '../assets/images/circle-user-solid.svg';
-import { login } from "../redux/actions/actions";
+import { loginRequest } from "../redux/actions/actions";
 
 const SignInPage = () => {
     const form = useRef();
@@ -22,17 +22,19 @@ const SignInPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true);
-        dispatch(login(email, password))
-        .then(() => {
-            navigate("/user/profile")
-        })
-        .catch(() => {
-            setLoading(false)
-        })
+        dispatch(loginRequest({email, password}))
     }
-    if (isLoggedIn) {
-        return <Navigate to="/user/profile" />;
-    }
+
+    useEffect(() => {
+        const ifLoggedIn = () => {
+            if (isLoggedIn) {
+                navigate("/user/profile")
+                setLoading(false)
+            }
+        }
+        ifLoggedIn()
+    }, [isLoggedIn, navigate])
+
     return (
     <div className={styles.bgDark}>
         <section className={styles.signInContent}>

@@ -24,19 +24,11 @@ const Layout = () => {
           dispatch(logout());
       }
   }
-/* 
-  window.onbeforeunload = function (e) {
-    window.onunload = function () {
-      dispatch(logout());
-    }
-    return undefined;
-}; */
 
   React.useEffect (() => {
    if (isLoggedIn) {
     profileService.getUser().then(res => setUser(res))
    }
-   console.log(isLoggedIn)
   },[isLoggedIn])
 
   const handleLogOut = () => {
