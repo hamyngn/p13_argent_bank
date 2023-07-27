@@ -1,9 +1,10 @@
 import authService from '../../services/authService'
-import profileService from '../../services/profileService'
+
 import {
     LOGIN_REQUESTED,
     LOGOUT,
-    UPDATE,
+    GET_USER_REQUESTED,
+    UPDATE_USER_REQUESTED,
     CLEAR_MESSAGE
 } from './actionTypes'
 
@@ -12,6 +13,20 @@ export const loginRequest = ({email, password}) => {
     type: LOGIN_REQUESTED,
     email,
     password
+  }
+}
+
+export const fetchUserRequest = () => {
+  return {
+    type: GET_USER_REQUESTED
+  }
+}
+
+export const updateUserRequest = ({firstName, lastName}) => {
+  return {
+    type: UPDATE_USER_REQUESTED,
+    firstName,
+    lastName
   }
 }
 
@@ -26,14 +41,3 @@ export const logout = () => (dispatch) => {
       type: CLEAR_MESSAGE,
     });
   };
-
-export const update = (firstName, lastName) => (dispatch) => {
-    const data = profileService.editUser(firstName, lastName);
-    if(data) {
-      dispatch({
-        type: UPDATE,
-        payload: {user: data}
-      })
-    }
-   
-}

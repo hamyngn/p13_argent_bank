@@ -35,7 +35,7 @@ function* fetchUser({email, password}) {
    }
 }
 
-function*  checkToken() {
+export function*  checkToken() {
    const token = authHeader();
    const decoded = jwt_decode(token)
    if (decoded.exp < new Date()/1000) {
@@ -43,9 +43,9 @@ function*  checkToken() {
    }
 }
 
-function* authSaga() {
+function* watchAuthSaga() {
    checkToken()
    yield takeEvery(LOGIN_REQUESTED, fetchUser);
 }
 
-export default authSaga;
+export default watchAuthSaga;

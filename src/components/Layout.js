@@ -3,41 +3,34 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import styles from '../assets/styles/Layout.module.css'
 import logo from '../assets/images/argentBankLogo.png';
 import {ReactComponent as SignInIcon} from '../assets/images/circle-user-solid.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {ReactComponent as SignOutIcon} from '../assets/images/right-from-bracket-solid.svg';
-import profileService from '../services/profileService';
 import { logout } from "../redux/actions/actions";
-import jwt_decode from "jwt-decode";
-import authHeader from "../services/authHeader";
+import {fetchUserRequest} from "../redux/actions/actions"
+import { useEffect } from 'react';
+import { connect } from 'react-redux'
 
-const Layout = () => {
+const Layout = (props) => {
   const {isLoggedIn} = useSelector(state => state.auth)
-  const [user, setUser] = React.useState({})
+  const {user, loading, error} = useSelector(state => state.profile)
 
-  const dispatch = useDispatch()
   let navigate = useNavigate();
 
-  if(isLoggedIn) {
-    const token = authHeader();
-      const decoded = jwt_decode(token)
-      if (decoded.exp < new Date()/1000) {
-          dispatch(logout());
-      }
-  }
-
-  React.useEffect (() => {
-   if (isLoggedIn) {
-    profileService.getUser().then(res => setUser(res))
-   }
-  },[isLoggedIn])
+  useEffect (() => {
+    if(isLoggedIn) {
+      props.fetchUser()
+    }
+  }, [props, isLoggedIn])
 
   const handleLogOut = () => {
-    dispatch(logout());
+    props.signOut()
     navigate('/')
   };
 
     return (
       <>
+      {loading && <div>Loading...</div>}
+      {error && !loading && <div> {error} </div>}
         <header className = {styles.flexRow}>
           <div className = {styles.logoContainer}>
           <img src={logo} alt="Logo" className={styles.logo}/>
@@ -48,7 +41,7 @@ const Layout = () => {
             <SignInIcon className={styles.icon}/> <span>Sign In</span>
             </NavLink>
             }
-            {isLoggedIn &&
+            {isLoggedIn && !loading && user &&
             <>
             <div className={styles.profile}>
             <SignInIcon className={styles.icon}/> <span className={styles.name}>{user.firstName}</span>
@@ -69,5 +62,10 @@ const Layout = () => {
       </>
     );
   };
-  export default Layout;
+
+  const mapDispatchToProps = dispatch => ({
+    fetchUser: () => dispatch(fetchUserRequest()),
+    signOut: () => dispatch(logout())
+  })
   
+  export default connect(null, mapDispatchToProps)(Layout)

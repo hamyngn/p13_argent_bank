@@ -1,31 +1,35 @@
 import React, { useEffect, useState } from "react"
-import profileService from "../services/profileService";
 import styles from "../assets/styles/Profile.module.css"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { update } from "../redux/actions/actions";
+import { updateUserRequest } from "../redux/actions/actions";
 import { connect } from 'react-redux'
+import {fetchUserRequest} from "../redux/actions/actions"
 
 const Profile = (props) => {
+    const {user, loading, error} = useSelector(state => state.profile)
     const {isLoggedIn} = useSelector(state => state.auth)
-    const [loading, setLoading] = useState(true)
     const [showUpdate, setShowUpdate] = useState(false)
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
-
     let navigate = useNavigate()
 
     useEffect (() => {
-    if (isLoggedIn === true) {
-        profileService.getUser().then(res => {
-            setFirstName(res.firstName)
-            setLastName(res.lastName)
-            setLoading(false)
-        })
-    } else {
+      props.fetchUser()
+    }, [props])
+
+    useEffect(() => {
+      if(!loading && !error && user) {
+        setFirstName(user.firstName)
+        setLastName(user.lastName)
+      }
+    }, [loading, error, user])
+
+    useEffect(() => {
+      if(!isLoggedIn) {
         navigate("/user/login")
-    }
-    },[isLoggedIn, navigate])
+      }
+    }, [isLoggedIn, navigate])
 
     const displayUpdate = () => {
         setShowUpdate(true)
@@ -36,12 +40,12 @@ const Profile = (props) => {
     }
 
     const handleUpdate = () => {
-      props.updateName(firstName, lastName)
+      props.updateUser({firstName, lastName})
     }
 
 return (
     <>
-    {loading && <div>Loading...</div>}
+    {!loading && error && <div>{error}</div>}
     <div className={styles.container}>
     <div className={styles.header}>
     <h1 className={styles.welcome}>Welcome back</h1>
@@ -118,8 +122,9 @@ return (
 )
 }
 
-const mapDispatchToProps = {
-  updateName: update,
-}
+const mapDispatchToProps = dispatch => ({
+  fetchUser: () => dispatch(fetchUserRequest()),
+  updateUser: (firstName, lastName) => dispatch(updateUserRequest(firstName, lastName))
+})
 
 export default connect(null, mapDispatchToProps)(Profile)
