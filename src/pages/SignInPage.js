@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate  } from 'react-router-dom';
 import styles from "../assets/styles/SignInPage.module.css"
 import {ReactComponent as SignInIcon} from '../assets/images/circle-user-solid.svg';
 import { loginRequest } from "../redux/actions/actions";
+import { connect } from 'react-redux'
 
-const SignInPage = () => {
+const SignInPage = (props) => {
     const form = useRef();
 
     let navigate = useNavigate();
@@ -16,13 +17,11 @@ const SignInPage = () => {
 
     const {isLoggedIn} = useSelector(state => state.auth);
     const { message } = useSelector(state => state.message);
-
-    const dispatch = useDispatch();
  
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true);
-        dispatch(loginRequest({email, password}))
+        props.login({email, password})
     }
 
     useEffect(() => {
@@ -77,4 +76,8 @@ const SignInPage = () => {
     )
 }
 
-export default SignInPage
+const mapDispatchToProps = {
+    login: loginRequest,
+  }
+  
+export default connect(null, mapDispatchToProps)(SignInPage)

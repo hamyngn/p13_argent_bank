@@ -10,20 +10,19 @@ const apiUrl = "http://localhost:3001/api/v1/user/login";
 const login = async ({email, password}) => {
    const user = {email: email, password: password}
    let data;
-   let error;
    await axios.post(apiUrl, user)
        .then((response) => {
            if (response.data.body.token) {
                localStorage.setItem("user", JSON.stringify(response.data));
            }
            data = response.data
+           return data
            }
        )
        .catch(err => {
-           error = err
            console.error(err)
+           throw err
        })
-       return {data, error};
  };
 
 function* fetchUser({email, password}) {
@@ -31,7 +30,8 @@ function* fetchUser({email, password}) {
       const user = yield call(login, {email, password});
       yield put({type:'LOGIN_SUCCEEDED', user: user});
    } catch (e) {
-      yield put({type:'LOGIN_FAILED', message: e.message});
+      yield put({type:'LOGIN_FAILED'});
+      yield put({type: 'SET_MESSAGE', message: e.message})
    }
 }
 
