@@ -5,7 +5,6 @@ import {
     LOGOUT,
     GET_USER_REQUESTED,
     UPDATE_USER_REQUESTED,
-    CLEAR_MESSAGE
 } from './actionTypes'
 
 export const loginRequest = ({email, password}) => {
@@ -35,9 +34,5 @@ export const logout = () => (dispatch) => {
   
     dispatch({
       type: LOGOUT,
-    });
-
-    dispatch({
-      type: CLEAR_MESSAGE,
     });
   };

@@ -14,9 +14,10 @@ const SignInPage = (props) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("")
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState(null)
 
     const {isLoggedIn} = useSelector(state => state.auth);
-    const { message } = useSelector(state => state.message);
+    const { error } = useSelector(state => state.auth);
  
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -33,6 +34,15 @@ const SignInPage = (props) => {
         }
         ifLoggedIn()
     }, [isLoggedIn, navigate])
+
+    useEffect(() => {
+        if(error) {
+            setLoading(false)
+            setMessage(error)
+        } else {
+            setMessage(null)
+        }
+    },[setLoading, error])
 
     return (
     <div className={styles.bgDark}>
@@ -76,8 +86,10 @@ const SignInPage = (props) => {
     )
 }
 
-const mapDispatchToProps = {
-    login: loginRequest,
+const mapDispatchToProps = (dispatch) => {
+    return  {
+        login: (email, password) => dispatch(loginRequest(email, password)),
+    }
   }
   
 export default connect(null, mapDispatchToProps)(SignInPage)

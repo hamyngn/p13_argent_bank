@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 
 const Layout = (props) => {
   const {isLoggedIn} = useSelector(state => state.auth)
-  const {user, loading, error} = useSelector(state => state.profile)
+  const {user, loading} = useSelector(state => state.profile)
 
   let navigate = useNavigate();
 
@@ -30,7 +30,6 @@ const Layout = (props) => {
     return (
       <>
       {loading && <div>Loading...</div>}
-      {error && !loading && <div> {error} </div>}
         <header className = {styles.flexRow}>
           <div className = {styles.logoContainer}>
           <img src={logo} alt="Logo" className={styles.logo}/>

@@ -11,7 +11,9 @@ const profile = (state = initialState, action) => {
       case GET_USER_REQUESTED: {
         return {
           ...state,
-          loading: true
+          user: null,
+          loading: true,
+          error: null
         }
       }
       case FETCH_SUCCEEDED: {
@@ -19,13 +21,15 @@ const profile = (state = initialState, action) => {
         return {
           ...state,
           user: user,
-          loading: false
+          loading: false,
+          error: null
         };
       }
       case FETCH_FAILED: {
         const {error} = action;
         return {
           ...state,
+          user: null,
           error: error,
           loading: false
         }
@@ -33,7 +37,9 @@ const profile = (state = initialState, action) => {
       case UPDATE_USER_REQUESTED: {
         return {
           ...state,
-          loading: true
+          user: null,
+          loading: true,
+          error: null
         }
       }
       case UPDATE_SUCCEEDED: {
@@ -41,13 +47,17 @@ const profile = (state = initialState, action) => {
         return {
           ...state,
           user: user,
+          loading: false,
+          error: null
         };
       }
       case UPDATE_FAILED: {
         const {error} = action;
         return {
           ...state,
-          error: error
+          error: error,
+          loading: false,
+          user: null
         }
       };
       default:

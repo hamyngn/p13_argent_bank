@@ -30,8 +30,7 @@ function* fetchUser({email, password}) {
       const user = yield call(login, {email, password});
       yield put({type:'LOGIN_SUCCEEDED', user: user});
    } catch (e) {
-      yield put({type:'LOGIN_FAILED'});
-      yield put({type: 'SET_MESSAGE', message: e.message})
+      yield put({type:'LOGIN_FAILED', error: e.message});
    }
 }
 

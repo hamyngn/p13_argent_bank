@@ -2,7 +2,7 @@ import { LOGIN_SUCCEEDED, LOGIN_FAILED, LOGOUT, LOGIN_REQUESTED } from '../actio
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-const initialState = user ? {isLoggedIn: true, user} : {isLoggedIn: false, user}
+const initialState = user ? {isLoggedIn: true, user, error: null} : {isLoggedIn: false, user, error: null}
 
 const login = (state = initialState, action) => {
   switch (action.type) {
@@ -21,12 +21,15 @@ const login = (state = initialState, action) => {
         user: user,
       };
     }
-    case LOGIN_FAILED:
+    case LOGIN_FAILED: {
+      const { error } = action
       return {
         ...state,
         isLoggedIn: false,
         user: null,
-      };
+        error: error
+      }
+    }
       case LOGOUT:
       return {
         ...state,

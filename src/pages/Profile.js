@@ -12,6 +12,7 @@ const Profile = (props) => {
     const [showUpdate, setShowUpdate] = useState(false)
     const [firstName, setFirstName] = useState(null)
     const [lastName, setLastName] = useState(null)
+    const [message, setMessage] = useState(null)
     let navigate = useNavigate()
 
     useEffect (() => {
@@ -31,6 +32,14 @@ const Profile = (props) => {
       }
     }, [isLoggedIn, navigate])
 
+    useEffect(() => {
+      if(error) {
+        setMessage(error)
+      } else {
+        setMessage(null)
+      }
+    }, [error])
+
     const displayUpdate = () => {
         setShowUpdate(true)
     }
@@ -45,7 +54,7 @@ const Profile = (props) => {
 
 return (
     <>
-    {!loading && error && <div>{error}</div>}
+    {!loading && message && <div>{message}</div>}
     <div className={styles.container}>
     <div className={styles.header}>
     <h1 className={styles.welcome}>Welcome back</h1>
