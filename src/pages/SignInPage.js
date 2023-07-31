@@ -38,7 +38,7 @@ const SignInPage = (props) => {
     useEffect(() => {
         if(error) {
             setLoading(false)
-            setMessage(error)
+            setMessage("Password is not correct")
         } else {
             setMessage(null)
         }

@@ -1,0 +1,168 @@
+swagger: '2.0'
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/transaction/list/{typeId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API for fetching a list of transactions
+      
+      parameters:
+        - in: path
+          type: string
+          name: typeId
+          description: Transaction Type
+          required: true
+
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successully
+          schema:
+            $ref: '#/definitions/Transactions'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          
+  /user/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API for updating a transaction
+      
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          
+        - in: path
+          name: transactionId
+          type: string
+          description: Transaction Id
+          required: true
+        
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction retrieved successully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API for updating a transaction
+      
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          
+        - in: path
+          name: transactionId
+          type: string
+          description: Transaction Id
+          required: true
+          
+        - in: body
+          name: Transaction
+          description: The transaction to update
+          schema:
+              $ref: '#/definitions/Transaction'
+              
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updating retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Transaction:
+    properties:
+      userId:
+        type: string
+        description: user id
+      date:
+        type: string
+        description: date of transaction
+      description:
+        type: string
+        description: description of transaction
+      amount:
+        type: number
+        description: amount of transaction
+      balance:
+        type: number
+        example: 10000
+        description: balance of transaction
+      transactionType:
+        type: string
+        description: type of transaction
+      category: 
+        type: string
+        description: category of transaction
+      notes:
+        type: string
+        description: notes of transaction
+        
+  Transactions:
+    type: array
+    items: 
+      $ref: '#/definitions/Transaction'
+
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+

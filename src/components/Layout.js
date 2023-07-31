@@ -29,7 +29,6 @@ const Layout = (props) => {
 
     return (
       <>
-      {loading && <div>Loading...</div>}
         <header className = {styles.flexRow}>
           <div className = {styles.logoContainer}>
           <img src={logo} alt="Logo" className={styles.logo}/>
