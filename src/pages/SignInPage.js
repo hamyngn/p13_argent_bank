@@ -47,8 +47,12 @@ const SignInPage = (props) => {
     return (
     <div className={styles.bgDark}>
         <section className={styles.signInContent}>
+            <div style={{display: "flex", justifyContent: "center"}}>
             <SignInIcon className={styles.signInIcon} />
+            </div>
+            <div style={{display: "flex", justifyContent: "center"}}>
             <h1>Sign In</h1>
+            </div>
             <form onSubmit={handleSubmit} ref={form}>
             <div className={styles.inputWrapper}>
                 <label htmlFor="username">Username</label>
