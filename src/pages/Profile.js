@@ -76,7 +76,7 @@ return (
             required
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
-            style={{marginRight: "10px"}}
+            className={styles.input}
             />
         <label htmlFor="lastname"></label>
             <input 

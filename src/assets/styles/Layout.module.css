@@ -50,6 +50,10 @@ nav {
     text-decoration: underline;
 }
 
+.main {
+    flex: 1;
+}
+
 footer {
     display: flex;
     justify-content: center;

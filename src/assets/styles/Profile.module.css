@@ -25,6 +25,10 @@
     margin-top: 0.67em;
 }
 
+.input {
+    margin-right: 1em;
+}
+
 .editButton {
     border-color: #00bc77;
     background-color: #00bc77;
@@ -115,5 +119,12 @@
 
     .accountContentWrapperCta {
         flex: 0;
+    }
+}
+
+@media (max-width: 350px) {
+    .input {
+        margin-right: 0;
+        margin-bottom: 0.5em;
     }
 }
