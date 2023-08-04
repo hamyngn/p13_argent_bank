@@ -1,6 +1,7 @@
 .bgDark {
     background-color: #12002b;
     padding-top: 3rem;
+    flex: 1
 }
 
 .signInContent {

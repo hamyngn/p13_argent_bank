@@ -1,8 +1,6 @@
 .container {
     background-color: #12002b;
-    display: block;
     flex: 1;
-    margin-top: -1.5rem;
     padding-bottom: 1.5rem;
 }
 
