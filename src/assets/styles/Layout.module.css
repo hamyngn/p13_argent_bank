@@ -42,10 +42,6 @@ nav {
     margin-bottom: -2px;
 }
 
-.name {
-    margin-right: 8px;
-}
-
 .name:hover{
     text-decoration: underline;
 }

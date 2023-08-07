@@ -43,7 +43,7 @@ const Layout = (props) => {
             <>
             <div className={styles.profile}>
               <NavLink to="/user/profile" className = {styles.navLink}>
-              <i class="fa fa-user-circle"></i> <span className={styles.name}>{user.firstName}</span>
+              <i class="fa fa-user-circle"></i> <span>{user.firstName}</span>
               </NavLink>
             </div>
             <div onClick={() => handleLogOut()} className={styles.logout}>
