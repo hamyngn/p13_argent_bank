@@ -61,7 +61,7 @@ return (
         {!showUpdate &&
         <>
         <div>
-            <h1 className={styles.name}>{firstName} {lastName}</h1>
+            <h1 className={styles.name}>{firstName} {lastName}!</h1>
             <button className={styles.editButton} onClick={displayUpdate}>Edit Name</button>
         </div>
         </>

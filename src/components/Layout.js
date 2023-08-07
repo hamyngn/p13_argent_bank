@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import styles from '../assets/styles/Layout.module.css'
 import logo from '../assets/images/argentBankLogo.png';
-import {ReactComponent as SignInIcon} from '../assets/images/circle-user-solid.svg';
 import { useSelector } from 'react-redux';
-import {ReactComponent as SignOutIcon} from '../assets/images/right-from-bracket-solid.svg';
 import { logout } from "../redux/actions/actions";
 import {fetchUserRequest} from "../redux/actions/actions"
 import { useEffect } from 'react';
@@ -31,21 +29,25 @@ const Layout = (props) => {
       <>
         <header className = {styles.flexRow}>
           <div className = {styles.logoContainer}>
-          <img src={logo} alt="Logo" className={styles.logo}/>
+            <Link to="/">
+              <img src={logo} alt="Logo" className={styles.logo}/>
+            </Link>
           </div>
           <nav>
             {!isLoggedIn && 
             <NavLink to="/user/login" className = {styles.navLink}>
-            <SignInIcon className={styles.icon}/> <span>Sign In</span>
+              <i class="fa fa-user-circle"></i> <span>Sign In</span>
             </NavLink>
             }
             {isLoggedIn && !loading && user &&
             <>
             <div className={styles.profile}>
-            <SignInIcon className={styles.icon}/> <span className={styles.name}>{user.firstName}</span>
+              <NavLink to="/user/profile" className = {styles.navLink}>
+              <i class="fa fa-user-circle"></i> <span className={styles.name}>{user.firstName}</span>
+              </NavLink>
             </div>
             <div onClick={() => handleLogOut()} className={styles.logout}>
-            <SignOutIcon className={styles.icon}/> <span className={styles.signOut}>Sign Out</span>
+            <i class="fa fa-sign-out"></i> <span className={styles.signOut}>Sign Out</span>
             </div>
             </>
             }

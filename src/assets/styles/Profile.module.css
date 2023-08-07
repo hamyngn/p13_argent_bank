@@ -1,7 +1,6 @@
 .container {
     background-color: #12002b;
     flex: 1;
-    padding-bottom: 1.5rem;
 }
 
 .header {
@@ -11,7 +10,7 @@
 }
 
 .welcome {
-    padding-top: 0.67em;
+    /* padding-top: 0.67em; */
     margin-bottom: 0;
 }
 
@@ -78,6 +77,7 @@
     padding: 0;
     font-size: 1rem;
     font-weight: normal;
+    white-space: nowrap;
 }
 
 .accountAmount {
