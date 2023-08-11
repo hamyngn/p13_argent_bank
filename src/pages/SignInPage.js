@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate  } from 'react-router-dom';
 import styles from "../assets/styles/SignInPage.module.css"
 import { loginRequest } from "../redux/actions/actions";
+import { ReactComponent as SignInIcon } from "../assets/images/circle-user-solid.svg";
 import { connect } from 'react-redux'
 
 const SignInPage = (props) => {
@@ -47,7 +48,7 @@ const SignInPage = (props) => {
     <div className={styles.bgDark}>
         <section className={styles.signInContent}>
             <div style={{display: "flex", justifyContent: "center"}}>
-            <i class="fa fa-user-circle sign-in-icon"></i>
+            <SignInIcon className={styles.signInIcon}/>
             </div>
             <div style={{display: "flex", justifyContent: "center"}}>
             <h1>Sign In</h1>

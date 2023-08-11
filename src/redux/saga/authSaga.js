@@ -2,7 +2,6 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import axios from "axios"
 import jwt_decode from "jwt-decode";
 import authHeader from "../../services/authHeader";
-import { logout } from '../actions/actions';
 import { LOGIN_REQUESTED } from '../actions/actionTypes';
 
 const apiUrl = "http://localhost:3001/api/v1/user/login";
@@ -34,11 +33,12 @@ function* fetchUser({email, password}) {
    }
 }
 
-export function*  checkToken() {
+export function* checkToken() {
    const token = authHeader();
    const decoded = jwt_decode(token)
    if (decoded.exp < new Date()/1000) {
-       yield put(logout());
+      localStorage.removeItem("user");
+      yield put({type:'LOGOUT'})
    }
 }
 

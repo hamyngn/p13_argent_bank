@@ -1,5 +1,3 @@
-import authService from '../../services/authService'
-
 import {
     LOGIN_REQUESTED,
     LOGOUT,
@@ -30,8 +28,7 @@ export const updateUserRequest = ({firstName, lastName}) => {
 }
 
 export const logout = () => (dispatch) => {
-    authService.logout();
-  
+  localStorage.removeItem("user");
     dispatch({
       type: LOGOUT,
     });

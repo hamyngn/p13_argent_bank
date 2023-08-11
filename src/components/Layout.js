@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import styles from '../assets/styles/Layout.module.css'
 import logo from '../assets/images/argentBankLogo.png';
+import { ReactComponent as SignInIcon } from "../assets/images/circle-user-solid.svg";
+import { ReactComponent as LogOutIcon } from "../assets/images/right-from-bracket-solid.svg";
 import { useSelector } from 'react-redux';
 import { logout } from "../redux/actions/actions";
 import {fetchUserRequest} from "../redux/actions/actions"
@@ -36,18 +38,18 @@ const Layout = (props) => {
           <nav>
             {!isLoggedIn && 
             <NavLink to="/user/login" className = {styles.navLink}>
-              <i class="fa fa-user-circle"></i> <span>Sign In</span>
+              <SignInIcon className={styles.icon}/> <span>Sign In</span>
             </NavLink>
             }
             {isLoggedIn && !loading && user &&
             <>
             <div className={styles.profile}>
               <NavLink to="/user/profile" className = {styles.navLink}>
-              <i class="fa fa-user-circle"></i> <span>{user.firstName}</span>
+              <SignInIcon className={styles.icon}/> <span>{user.firstName}</span>
               </NavLink>
             </div>
             <div onClick={() => handleLogOut()} className={styles.logout}>
-            <i class="fa fa-sign-out"></i> <span className={styles.signOut}>Sign Out</span>
+            <LogOutIcon className={styles.icon}/> <span className={styles.signOut}>Sign Out</span>
             </div>
             </>
             }

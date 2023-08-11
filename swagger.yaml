@@ -114,7 +114,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  user/transaction/new :
+  user/transaction/new:
     post:
       security:
         - Bearer: []

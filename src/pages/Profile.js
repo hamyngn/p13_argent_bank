@@ -55,6 +55,7 @@ const Profile = (props) => {
 return (
     <>
     {!loading && message && <div>{message}</div>}
+    {user && 
     <div className={styles.container}>
     <div className={styles.header}>
     <h1 className={styles.welcome}>Welcome back</h1>
@@ -127,6 +128,7 @@ return (
         </div>
       </section>
       </div>
+      }
       </>
 )
 }
