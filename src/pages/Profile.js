@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { updateUserRequest } from "../redux/actions/actions";
 import { connect } from 'react-redux'
 import {fetchUserRequest} from "../redux/actions/actions"
+import { logout } from "../redux/actions/actions";
 
 const Profile = (props) => {
     const {user, loading, error} = useSelector(state => state.profile)
@@ -28,17 +29,21 @@ const Profile = (props) => {
 
     useEffect(() => {
       if(!isLoggedIn) {
-        navigate("/user/login")
+        navigate("/user/login");
       }
     }, [isLoggedIn, navigate])
 
     useEffect(() => {
       if(error) {
-        setMessage(error)
+        if(error === "Request failed with status code 401") {
+          props.signOut();
+          navigate("/user/login");
+        }
+        else setMessage(error)
       } else {
         setMessage(null)
       }
-    }, [error])
+    }, [error, props, navigate])
 
     const displayUpdate = () => {
         setShowUpdate(true)
@@ -135,7 +140,8 @@ return (
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUserRequest()),
-  updateUser: (firstName, lastName) => dispatch(updateUserRequest(firstName, lastName))
+  updateUser: (firstName, lastName) => dispatch(updateUserRequest(firstName, lastName)),
+  signOut: () => dispatch(logout())
 })
 
 export default connect(null, mapDispatchToProps)(Profile)
