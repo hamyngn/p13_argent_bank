@@ -49,7 +49,7 @@ paths:
       tags:
         - Transaction Module
       summary: Transaction API
-      description: API for updating a transaction
+      description: API for fetching a transaction
       
       parameters:
         - in: header
@@ -137,10 +137,8 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
-          description: Transaction updating retrieved successully
-          schema:
-            $ref: '#/definitions/ApiResponse'
+        '204':
+          description: Transaction deleting retrieved successully
         '404':
           description: Not Found
         '500':
