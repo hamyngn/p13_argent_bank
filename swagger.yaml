@@ -113,8 +113,40 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-
-  user/transaction/new:
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API for deleting a transaction
+      
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          
+        - in: path
+          name: transactionId
+          type: string
+          description: Transaction Id
+          required: true
+              
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updating retrieved successully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          
+  /user/transaction/new:
     post:
       security:
         - Bearer: []
