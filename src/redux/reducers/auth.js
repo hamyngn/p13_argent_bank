@@ -11,6 +11,7 @@ const login = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
         user: null,
+        error: null,
       };
     }
     case LOGIN_SUCCEEDED: {
@@ -19,6 +20,7 @@ const login = (state = initialState, action) => {
         ...state,
         isLoggedIn: true,
         user: user,
+        error: null
       };
     }
     case LOGIN_FAILED: {
